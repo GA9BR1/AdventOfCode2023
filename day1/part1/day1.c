@@ -21,7 +21,6 @@ int main(int argc, char *argv[]) {
     char concat[3];
     char firstDigit = ' ';
     char lastDigit;
-    int count = 0;
 
     while(fread(&buffer, 1, 1, fp)) {
         if(isdigit(buffer)){
@@ -30,23 +29,21 @@ int main(int argc, char *argv[]) {
                 lastDigit = buffer;
             } else {
                 lastDigit = buffer;
-                count ++;
             }
         }
+        
         if(buffer == '\n'){
             concat[0] = firstDigit;
-            if(count > 0){
+            if(lastDigit != '\0'){
                 concat[1] = lastDigit;
             } else {
                 concat[1] = firstDigit;
             }
             concat[2] = '\0';
-
             int num = atoi(concat);
             sum += num;
-
             firstDigit = ' ';
-            count = 0;             
+            lastDigit = '\0';          
         }
     }
     printf("%i", sum);
